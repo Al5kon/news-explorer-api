@@ -1,26 +1,26 @@
 /* eslint-disable max-classes-per-file */
-class BadRequestError extends Error {
+class Error400 extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 400;
   }
 }
 
-class UnauthorizedError extends Error {
+class Error401 extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 401;
   }
 }
 
-class NotYoursError extends Error {
+class Error403 extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 403;
   }
 }
 
-class NotFoundError extends Error {
+class Error404 extends Error {
   constructor(message) {
     super(message);
     this.statusCode = 404;
@@ -28,8 +28,8 @@ class NotFoundError extends Error {
 }
 
 module.exports = {
-  BadRequestError,
-  UnauthorizedError,
-  NotYoursError,
-  NotFoundError,
+  Error400,
+  Error401,
+  Error403,
+  Error404,
 };

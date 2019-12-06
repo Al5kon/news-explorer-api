@@ -1,10 +1,11 @@
 const Article = require('../models/article');
 const User = require('../models/user');
 const {
-  BadRequestError,
-  NotYoursError,
-  NotFoundError,
-} = require('../middlewares/error');
+  Error400,
+  Error403,
+  Error404,
+} = require('../errors/error');
+const ErrorMessage = require('../errors/errormessage');
 require('./users');
 
 const getAllArticles = (req, res, next) => {
@@ -40,7 +41,7 @@ const postArticle = (req, res, next) => {
     owner,
   })
     .then(() => res.status(201).end())
-    .catch(() => { throw new BadRequestError('Неверный запрос'); })
+    .catch(() => { throw new Error400(ErrorMessage.BAD_REQUEST); })
     .catch(next);
 };
 
@@ -49,7 +50,7 @@ const deleteArticleByArticleId = (req, res, next) => {
   Article.findById(articleId).select('+owner')
     .then((article) => {
       if (!article) {
-        throw new NotFoundError('Такой  статьи не существует');
+        throw new Error404(ErrorMessage.NOT_FOUND_ARTICLE);
       }
       if (req.user._id === article.owner.toString()) {
         Article.findByIdAndRemove(articleId)
@@ -58,7 +59,7 @@ const deleteArticleByArticleId = (req, res, next) => {
           })
           .catch(next);
       } else {
-        throw new NotYoursError('Эта статья Вам не принадлежит');
+        throw new Error403(ErrorMessage.NOT_YOURS_ARTICLE);
       }
     })
     .catch(next);
