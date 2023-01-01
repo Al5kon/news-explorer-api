@@ -41,7 +41,7 @@
     "eslint": "^6.6.0",
     "eslint-config-airbnb-base": "^14.0.0",
     "eslint-plugin-import": "^2.18.2",
-    "file-loader": "^4.2.0",
+    "file-loader": "^6.2.0",
     "nodemon": "^1.19.4"
   }
 }
